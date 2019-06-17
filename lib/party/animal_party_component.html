@@ -1,0 +1,10 @@
+<h2 align="center">PARTY AN|MALS!</h2>
+<animal [name]='"Jake"' (onVoice)="addVoice($event)" [size]="20"></animal>
+<animal [name]='"Ponch"' (onVoice)="addVoice($event)" [size]="15"></animal>
+<animal [name]='"Kuzya"' (onVoice)="addVoice($event)"></animal>
+<animal [name]='"Stethem"' (onVoice)="addVoice($event)"></animal>
+
+<div *ngIf='log.isNotEmpty'>
+    <h3>Info table</h3>
+    <p *ngFor='let item of log'>{{ item }}</p>
+</div>
