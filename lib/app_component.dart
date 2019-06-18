@@ -7,7 +7,7 @@ import 'package:angular/angular.dart';
   styleUrls: ['app_component.css'],
   templateUrl: 'app_component.html',
   directives: [
-    AnimalVillageComponent,
+    AnimalPartyComponent,
     SizerComponent,
   ],
 )

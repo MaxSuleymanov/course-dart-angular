@@ -5,7 +5,7 @@ import 'package:angular/angular.dart';
     selector: 'animal-party',
     templateUrl: 'animal_party_component.html',
     directives: [NgFor, NgIf, AnimalComponent])
-class AnimalVillageComponent 
+class AnimalPartyComponent
     implements 
         OnInit, 
         AfterChanges,
@@ -24,41 +24,41 @@ class AnimalVillageComponent
   int step = 0;
   @override
   void ngOnInit() {
-    print('AnimalVillageComponent ${step++}   ngOnInit');
+    print('AnimalPartyComponent ${step++}   ngOnInit');
   }
 
   @override
   void ngDoCheck() {
-    print('AnimalVillageComponent ${step++}   ngDoCheck');
+    print('AnimalPartyComponent ${step++}   ngDoCheck');
   }
 
   @override
   void ngAfterContentChecked() {
-    print('AnimalVillageComponent ${step++}   ngAfterContentChecked');
+    print('AnimalPartyComponent ${step++}   ngAfterContentChecked');
   }
 
   @override
   void ngAfterContentInit() {
-    print('AnimalVillageComponent ${step++}   ngAfterContentInit');
+    print('AnimalPartyComponent ${step++}   ngAfterContentInit');
   }
 
   @override
   void ngAfterViewChecked() {
-    print('AnimalVillageComponent ${step++}   ngAfterViewChecked');
+    print('AnimalPartyComponent ${step++}   ngAfterViewChecked');
   }
 
   @override
   void ngAfterViewInit() {
-    print('AnimalVillageComponent ${step++}   ngAfterViewInit');
+    print('AnimalPartyComponent ${step++}   ngAfterViewInit');
   }
 
   @override
   void ngOnDestroy() {
-    print('AnimalVillageComponent ${step++}   ngOnDestroy');
+    print('AnimalPartyComponent ${step++}   ngOnDestroy');
   }
 
   @override
   void ngAfterChanges() {
-    print('AnimalVillageComponent ${step++}   ngAfterChanges');
+    print('AnimalPartyComponent ${step++}   ngAfterChanges');
   }
 }
