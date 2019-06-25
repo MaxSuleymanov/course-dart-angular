@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:PartyAnimals/src/img_url_service.dart';
+import 'package:PartyAnimals/src/ImgUrlService.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-const minAge = 8;
-const maxAge = minAge * 5;
+const minSize = 8;
+const maxSize = minSize * 5;
 
 @Component(
     selector: 'animal',
@@ -14,7 +14,7 @@ const maxAge = minAge * 5;
     styleUrls: ['animal_component.css'],
     preserveWhitespace: true,
     directives: [formDirectives],
-    exports: [minAge, maxAge],
+    exports: [minSize, maxSize],
     providers: [ClassProvider(ImgUrlService)])
 class AnimalComponent implements
     OnInit,
@@ -42,19 +42,16 @@ class AnimalComponent implements
       new StreamController<String>();
 
   void addVoice() {
-    _onVoiceController.add('I\'m ${name}, ${age} years old.');
+    _onVoiceController.add('I\'m ${name}, ${size} years old.');
   }
 
-  int _age = minAge * 2;
-
-  int get age {
-    return min(maxAge, max(minAge, _age));
-  }
+  int _size = minSize * 2;
+  int get size => _size;
 
   @Input()
-  set age(/*String|int*/ val) {
+  set size(/*String|int*/ val) {
     int z = val is int ? val : int.tryParse(val);
-    if (z != null) _age = z;
+    if (z != null) _size = min(maxSize, max(minSize, z));
   }
 
   final _sizeChange = StreamController<int>();
@@ -65,12 +62,10 @@ class AnimalComponent implements
   void dec() => resize(-1);
   void inc() => resize(1);
   void resize(int delta) {
-    age = age + delta;
-    _sizeChange.add(age);
+    size = size + delta;
+    _sizeChange.add(size);
   }
 
-  get canDecrease => age <= minAge;
-  get canIncrease => age >= maxAge;
 
   int step = 0;
   @override
