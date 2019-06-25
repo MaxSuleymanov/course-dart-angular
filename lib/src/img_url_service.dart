@@ -1,19 +1,10 @@
 import 'dart:math';
 
-import 'package:PartyAnimals/src/image_url_getter.dart';
-
-class ImgUrlService implements ImageUrlGetter {
-  int _counter = 0;
-  @override
-  String getImageUrl() {
-    _counter++;
-    print('get image service ' + _counter.toString());
-    return _imgUrls[Random().nextInt(_imgUrls.length - 1)];
-  }
-
-  //String getImageUrl() => _imgUrls[Random().nextInt(_imgUrls.length - 1)];
-  final List<String> _imgUrls = [
+class ImgUrlService {
+  String getImageUrl() => imgUrls[Random().nextInt(imgUrls.length - 1)];
+  final List<String> imgUrls = [
     'https://www.stickpng.com/assets/images/58a050065583a1291368eeb4.png',
+    'https://s3.amazonaws.com/peoplepng/wp-content/uploads/2018/07/01071525/lynx-PNG-HD.png',
     'https://img.fireden.net/v/image/1513/27/1513273350414.png',
     'https://freepngimg.com/thumb/bear/8-2-bear-png-15.png',
     'http://www.pngnames.com/files/4/Lemur-PNG-Free-Pic.png',

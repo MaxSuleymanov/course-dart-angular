@@ -1,17 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:PartyAnimals/src/cleaner.dart';
-import 'package:PartyAnimals/src/cleaner_types.dart';
-import 'package:PartyAnimals/src/image_url_getter.dart';
 import 'package:PartyAnimals/src/img_url_service.dart';
-import 'package:PartyAnimals/src/cleaner_factory.dart';
-import 'package:PartyAnimals/src/nice_day_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-const minAge = 1;
-const maxAge = minAge * 20;
+const minAge = 8;
+const maxAge = minAge * 5;
 
 @Component(
     selector: 'animal',
@@ -20,42 +15,32 @@ const maxAge = minAge * 20;
     preserveWhitespace: true,
     directives: [formDirectives],
     exports: [minAge, maxAge],
-    providers: [
-      ValueProvider(CleanerTypes, CleanerTypes.granny),
-      FactoryProvider(Cleaner, cleanerFactory, deps: [CleanerTypes]),
-      ClassProvider(ImageUrlGetter, useClass: ImgUrlService)
-    ])
-class AnimalComponent
-//    implements
-//        OnInit,
-//        AfterChanges,
-//        DoCheck,
-//        AfterContentInit,
-//        AfterContentChecked,
-//        AfterViewInit,
-//        AfterViewChecked,
-//        OnDestroy
-{
+    providers: [ClassProvider(ImgUrlService)])
+class AnimalComponent implements
+    OnInit,
+    AfterChanges,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy {
   @Input()
   String name = 'nothing';
 
   final String imageUrl;
 
   // ignore: unused_field
-  final ImageUrlGetter _imgUrlService;
-  final NiceDayService _niceDayService;
-  final Cleaner _cleanerService;
-  AnimalComponent(this._imgUrlService, this._niceDayService, this._cleanerService)
+  final ImgUrlService _imgUrlService;
+  AnimalComponent(this._imgUrlService)
       : imageUrl = _imgUrlService.getImageUrl();
 
-  get wish => _niceDayService.wish();
   @Output()
   Stream<String> get onVoice => _onVoiceController.stream;
 
   final StreamController<String> _onVoiceController =
       new StreamController<String>();
 
-  void clean() => _cleanerService.clean();
   void addVoice() {
     _onVoiceController.add('I\'m ${name}, ${age} years old.');
   }
@@ -87,44 +72,44 @@ class AnimalComponent
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;
 
-//  int step = 0;
-//  @override
-//  void ngOnInit() {
-//    print('AnimalComponent $name ${step++}  ngOnInit');
-//  }
-//
-//  @override
-//  void ngDoCheck() {
-//    print('AnimalComponent $name ${step++}  ngDoCheck');
-//  }
-//
-//  @override
-//  void ngAfterContentChecked() {
-//    print('AnimalComponent $name ${step++}  ngAfterContentChecked');
-//  }
-//
-//  @override
-//  void ngAfterContentInit() {
-//    print('AnimalComponent $name ${step++}  ngAfterContentInit');
-//  }
-//
-//  @override
-//  void ngAfterViewChecked() {
-//    print('AnimalComponent $name ${step++}  ngAfterViewChecked');
-//  }
-//
-//  @override
-//  void ngAfterViewInit() {
-//    print('AnimalComponent $name ${step++}  ngAfterViewInit');
-//  }
-//
-//  @override
-//  void ngOnDestroy() {
-//    print('AnimalComponent $name ${step++}  ngOnDestroy');
-//  }
-//
-//  @override
-//  void ngAfterChanges() {
-//    print('AnimalComponent $name ${step++}  ngAfterChanges');
-//  }
+  int step = 0;
+  @override
+  void ngOnInit() {
+    print('AnimalComponent $name ${step++}  ngOnInit');
+  }
+
+  @override
+  void ngDoCheck() {
+    print('AnimalComponent $name ${step++}  ngDoCheck');
+  }
+
+  @override
+  void ngAfterContentChecked() {
+    print('AnimalComponent $name ${step++}  ngAfterContentChecked');
+  }
+
+  @override
+  void ngAfterContentInit() {
+    print('AnimalComponent $name ${step++}  ngAfterContentInit');
+  }
+
+  @override
+  void ngAfterViewChecked() {
+    print('AnimalComponent $name ${step++}  ngAfterViewChecked');
+  }
+
+  @override
+  void ngAfterViewInit() {
+    print('AnimalComponent $name ${step++}  ngAfterViewInit');
+  }
+
+  @override
+  void ngOnDestroy() {
+    print('AnimalComponent $name ${step++}  ngOnDestroy');
+  }
+
+  @override
+  void ngAfterChanges() {
+    print('AnimalComponent $name ${step++}  ngAfterChanges');
+  }
 }

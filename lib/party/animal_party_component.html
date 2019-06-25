@@ -1,15 +1,9 @@
-<div align="center"><img [src]='imageUrl' width="20%" /></div>
 <h2 align="center">PARTY AN|MALS!</h2>
-<h3 align="center">{{greeting}}</h3>
+<animal [name]='"Jake"' (onVoice)="addVoice($event)" [size]="20"></animal>
+<animal [name]='"Ponch"' (onVoice)="addVoice($event)" [size]="15"></animal>
+<animal [name]='"Kuzya"' (onVoice)="addVoice($event)"></animal>
+<animal [name]='"Stethem"' (onVoice)="addVoice($event)"></animal>
 
-<div align="center"><button (click)="clean()">Clean all party</button></div>
-
-<div>
-    <animal [name]='"Jake"' (onVoice)="addVoice($event)" [age]="4"></animal>
-    <animal [name]='"Ponch"' (onVoice)="addVoice($event)" [age]="1"></animal>
-    <animal [name]='"Kuzya"' (onVoice)="addVoice($event)"></animal>
-    <animal [name]='"Stethem"' (onVoice)="addVoice($event)"></animal>
-</div>
 <div *ngIf='log.isNotEmpty'>
     <h3>Info table</h3>
     <p *ngFor='let item of log'>{{ item }}</p>

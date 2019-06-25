@@ -1,1 +1,0 @@
-enum CleanerTypes { granny, senior }
