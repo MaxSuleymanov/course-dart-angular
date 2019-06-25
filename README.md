@@ -1,4 +1,4 @@
-# course_dart_angular
+# AngularDartApp
 
 A web app that uses [AngularDart](https://webdev.dartlang.org/angular) and
 [AngularDart Components](https://webdev.dartlang.org/components).
