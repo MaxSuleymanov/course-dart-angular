@@ -2,6 +2,6 @@
 <div>
     <label [style.font-size.px]="size">Hi, my name is {{ name }}. I'm {{size}} years old.</label>
 </div>
-<button (click)="dec()" [disabled]="size <= minSize">-</button>
-<button (click)="inc()" [disabled]="size >= maxSize">+</button>
+<button (click)="dec()" [disabled]="canDecrease">-</button>
+<button (click)="inc()" [disabled]="canIncrease">+</button>
 <button (click)="addVoice()">VOICE</button>
