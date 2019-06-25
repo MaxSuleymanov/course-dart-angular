@@ -1,7 +1,8 @@
 <img [src]='imageUrl' width="150"/>
 <div>
-    <label [style.font-size.px]="size">Hi, my name is {{ name }}. I'm {{size}} years old.</label>
+    <label [style.font-size.px]="age + 10">Hi, my name is {{ name }}. I'm {{age}} years old. {{wish}}</label>
 </div>
 <button (click)="dec()" [disabled]="size <= minSize">-</button>
 <button (click)="inc()" [disabled]="size >= maxSize">+</button>
 <button (click)="addVoice()">VOICE</button>
+<button (click)="clean()">Clean my stuff</button>
