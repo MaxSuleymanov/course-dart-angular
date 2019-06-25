@@ -22,17 +22,7 @@ import 'package:angular/angular.dart';
       ValueProvider(CleanerTypes, CleanerTypes.senior),
       FactoryProvider(Cleaner, cleanerFactory, deps: [CleanerTypes])
     ])
-class AnimalPartyComponent
-//    implements
-//        OnInit,
-//        AfterChanges,
-//        DoCheck,
-//        AfterContentInit,
-//        AfterContentChecked,
-//        AfterViewInit,
-//        AfterViewChecked,
-//        OnDestroy
-{
+class AnimalPartyComponent {
   final String imageUrl;
   // ignore: unused_field
   ImageUrlGetter _imageService;
@@ -52,45 +42,4 @@ class AnimalPartyComponent
   void addVoice(String voice) {
     log.add(voice);
   }
-
-//  int step = 0;
-//  @override
-//  void ngOnInit() {
-//    print('AnimalPartyComponent ${step++}   ngOnInit');
-//  }
-//
-//  @override
-//  void ngDoCheck() {
-//    print('AnimalPartyComponent ${step++}   ngDoCheck');
-//  }
-//
-//  @override
-//  void ngAfterContentChecked() {
-//    print('AnimalPartyComponent ${step++}   ngAfterContentChecked');
-//  }
-//
-//  @override
-//  void ngAfterContentInit() {
-//    print('AnimalPartyComponent ${step++}   ngAfterContentInit');
-//  }
-//
-//  @override
-//  void ngAfterViewChecked() {
-//    print('AnimalPartyComponent ${step++}   ngAfterViewChecked');
-//  }
-//
-//  @override
-//  void ngAfterViewInit() {
-//    print('AnimalPartyComponent ${step++}   ngAfterViewInit');
-//  }
-//
-//  @override
-//  void ngOnDestroy() {
-//    print('AnimalPartyComponent ${step++}   ngOnDestroy');
-//  }
-//
-//  @override
-//  void ngAfterChanges() {
-//    print('AnimalPartyComponent ${step++}   ngAfterChanges');
-//  }
 }

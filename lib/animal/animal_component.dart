@@ -25,17 +25,7 @@ const maxAge = minAge * 20;
       FactoryProvider(Cleaner, cleanerFactory, deps: [CleanerTypes]),
       ClassProvider(ImageUrlGetter, useClass: ImgUrlService)
     ])
-class AnimalComponent
-//    implements
-//        OnInit,
-//        AfterChanges,
-//        DoCheck,
-//        AfterContentInit,
-//        AfterContentChecked,
-//        AfterViewInit,
-//        AfterViewChecked,
-//        OnDestroy
-{
+class AnimalComponent {
   @Input()
   String name = 'nothing';
 
@@ -86,45 +76,4 @@ class AnimalComponent
 
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;
-
-//  int step = 0;
-//  @override
-//  void ngOnInit() {
-//    print('AnimalComponent $name ${step++}  ngOnInit');
-//  }
-//
-//  @override
-//  void ngDoCheck() {
-//    print('AnimalComponent $name ${step++}  ngDoCheck');
-//  }
-//
-//  @override
-//  void ngAfterContentChecked() {
-//    print('AnimalComponent $name ${step++}  ngAfterContentChecked');
-//  }
-//
-//  @override
-//  void ngAfterContentInit() {
-//    print('AnimalComponent $name ${step++}  ngAfterContentInit');
-//  }
-//
-//  @override
-//  void ngAfterViewChecked() {
-//    print('AnimalComponent $name ${step++}  ngAfterViewChecked');
-//  }
-//
-//  @override
-//  void ngAfterViewInit() {
-//    print('AnimalComponent $name ${step++}  ngAfterViewInit');
-//  }
-//
-//  @override
-//  void ngOnDestroy() {
-//    print('AnimalComponent $name ${step++}  ngOnDestroy');
-//  }
-//
-//  @override
-//  void ngAfterChanges() {
-//    print('AnimalComponent $name ${step++}  ngAfterChanges');
-//  }
 }
