@@ -1,40 +1,50 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:PartyAnimals/src/ImgUrlService.dart';
+import 'package:PartyAnimals/src/app_providers.dart';
+import 'package:PartyAnimals/src/cleaners/cleaner.dart';
+import 'package:PartyAnimals/src/cleaners/cleaner_types.dart';
+import 'package:PartyAnimals/src/image_url_getter.dart';
+import 'package:PartyAnimals/src/img_url_service.dart';
+import 'package:PartyAnimals/src/nice_day_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-const minSize = 8;
-const maxSize = minSize * 5;
+const minAge = 1;
+const maxAge = minAge * 20;
 
 @Component(
     selector: 'animal',
     templateUrl: 'animal_component.html',
     styleUrls: ['animal_component.css'],
     preserveWhitespace: true,
-    directives: [formDirectives],
-    exports: [minSize, maxSize],
-    providers: [ClassProvider(ImgUrlService)])
-class AnimalComponent implements
-    OnInit,
-    AfterChanges,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked,
-    OnDestroy {
+    directives: [
+      formDirectives,
+      NgFor,
+      NgIf,
+    ],
+    exports: [minAge, maxAge],
+    providers: [
+      appProviders,
+      ValueProvider(CleanerTypes, CleanerTypes.granny),
+      ClassProvider(ImageUrlGetter, useClass: ImgUrlService)
+    ])
+class AnimalComponent {
   @Input()
   String name = 'nothing';
 
   final String imageUrl;
 
   // ignore: unused_field
-  final ImgUrlService _imgUrlService;
-  AnimalComponent(this._imgUrlService)
-      : imageUrl = _imgUrlService.getImageUrl();
+  final ImageUrlGetter _imgUrlService;
+  final NiceDayService _niceDayService;
+  final Cleaner _cleanerService;
+  AnimalComponent(this._imgUrlService, this._niceDayService, this._cleanerService)
+      : imageUrl = _imgUrlService.getImageUrl() {
+    _cleanerService.onClean.listen((info) => cleaningLog.add(info));
+  }
 
+  String wish() => _niceDayService.wish();
   @Output()
   Stream<String> get onVoice => _onVoiceController.stream;
 
@@ -42,16 +52,19 @@ class AnimalComponent implements
       new StreamController<String>();
 
   void addVoice() {
-    _onVoiceController.add('I\'m ${name}, ${size} years old.');
+    _onVoiceController.add('I\'m ${name}, ${age} years old.');
   }
 
-  int _size = minSize * 2;
-  int get size => _size;
+  int _age = minAge * 2;
+
+  int get age {
+    return min(maxAge, max(minAge, _age));
+  }
 
   @Input()
-  set size(/*String|int*/ val) {
+  set age(/*String|int*/ val) {
     int z = val is int ? val : int.tryParse(val);
-    if (z != null) _size = min(maxSize, max(minSize, z));
+    if (z != null) _age = z;
   }
 
   final _sizeChange = StreamController<int>();
@@ -62,49 +75,13 @@ class AnimalComponent implements
   void dec() => resize(-1);
   void inc() => resize(1);
   void resize(int delta) {
-    size = size + delta;
-    _sizeChange.add(size);
+    age = age + delta;
+    _sizeChange.add(age);
   }
 
+  get canDecrease => age <= minAge;
+  get canIncrease => age >= maxAge;
 
-  int step = 0;
-  @override
-  void ngOnInit() {
-    print('AnimalComponent $name ${step++}  ngOnInit');
-  }
-
-  @override
-  void ngDoCheck() {
-    print('AnimalComponent $name ${step++}  ngDoCheck');
-  }
-
-  @override
-  void ngAfterContentChecked() {
-    print('AnimalComponent $name ${step++}  ngAfterContentChecked');
-  }
-
-  @override
-  void ngAfterContentInit() {
-    print('AnimalComponent $name ${step++}  ngAfterContentInit');
-  }
-
-  @override
-  void ngAfterViewChecked() {
-    print('AnimalComponent $name ${step++}  ngAfterViewChecked');
-  }
-
-  @override
-  void ngAfterViewInit() {
-    print('AnimalComponent $name ${step++}  ngAfterViewInit');
-  }
-
-  @override
-  void ngOnDestroy() {
-    print('AnimalComponent $name ${step++}  ngOnDestroy');
-  }
-
-  @override
-  void ngAfterChanges() {
-    print('AnimalComponent $name ${step++}  ngAfterChanges');
-  }
+  final List<String> cleaningLog = [];
+  void clean() => _cleanerService.clean();
 }
