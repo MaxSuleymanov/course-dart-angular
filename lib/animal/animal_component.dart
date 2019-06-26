@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:PartyAnimals/src/cleaner.dart';
-import 'package:PartyAnimals/src/cleaner_types.dart';
+import 'package:PartyAnimals/src/app_providers.dart';
+import 'package:PartyAnimals/src/cleaners/cleaner.dart';
+import 'package:PartyAnimals/src/cleaners/cleaner_types.dart';
 import 'package:PartyAnimals/src/image_url_getter.dart';
 import 'package:PartyAnimals/src/img_url_service.dart';
-import 'package:PartyAnimals/src/cleaner_factory.dart';
 import 'package:PartyAnimals/src/nice_day_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -18,11 +18,15 @@ const maxAge = minAge * 20;
     templateUrl: 'animal_component.html',
     styleUrls: ['animal_component.css'],
     preserveWhitespace: true,
-    directives: [formDirectives],
+    directives: [
+      formDirectives,
+      NgFor,
+      NgIf,
+    ],
     exports: [minAge, maxAge],
     providers: [
+      appProviders,
       ValueProvider(CleanerTypes, CleanerTypes.granny),
-      FactoryProvider(Cleaner, cleanerFactory, deps: [CleanerTypes]),
       ClassProvider(ImageUrlGetter, useClass: ImgUrlService)
     ])
 class AnimalComponent {
@@ -36,16 +40,17 @@ class AnimalComponent {
   final NiceDayService _niceDayService;
   final Cleaner _cleanerService;
   AnimalComponent(this._imgUrlService, this._niceDayService, this._cleanerService)
-      : imageUrl = _imgUrlService.getImageUrl();
+      : imageUrl = _imgUrlService.getImageUrl() {
+    _cleanerService.onClean.listen((info) => cleaningLog.add(info));
+  }
 
-  get wish => _niceDayService.wish();
+  String wish() => _niceDayService.wish();
   @Output()
   Stream<String> get onVoice => _onVoiceController.stream;
 
   final StreamController<String> _onVoiceController =
       new StreamController<String>();
 
-  void clean() => _cleanerService.clean();
   void addVoice() {
     _onVoiceController.add('I\'m ${name}, ${age} years old.');
   }
@@ -76,4 +81,7 @@ class AnimalComponent {
 
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;
+
+  final List<String> cleaningLog = [];
+  void clean() => _cleanerService.clean();
 }
