@@ -37,14 +37,17 @@ class AnimalComponent {
 
   // ignore: unused_field
   final ImageUrlGetter _imgUrlService;
+  // ignore: unused_field
   final NiceDayService _niceDayService;
   final Cleaner _cleanerService;
-  AnimalComponent(this._imgUrlService, this._niceDayService, this._cleanerService)
-      : imageUrl = _imgUrlService.getImageUrl() {
+  final String wish;
+  AnimalComponent(
+      this._imgUrlService, this._niceDayService, this._cleanerService)
+      : imageUrl = _imgUrlService.getImageUrl(),
+        wish = _niceDayService.wish() {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
   }
 
-  String wish() => _niceDayService.wish();
   @Output()
   Stream<String> get onVoice => _onVoiceController.stream;
 

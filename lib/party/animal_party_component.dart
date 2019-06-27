@@ -26,16 +26,17 @@ import 'package:angular/angular.dart';
 class AnimalPartyComponent {
   final String imageUrl;
   // ignore: unused_field
-  ImageUrlGetter _imageService;
-  NiceDayService _niceDayService;
-  Cleaner _cleanerService;
+  final ImageUrlGetter _imageService;
+  // ignore: unused_field
+  final NiceDayService _niceDayService;
+  final Cleaner _cleanerService;
+  final String greeting;
   AnimalPartyComponent(
       this._imageService, this._niceDayService, this._cleanerService)
-      : imageUrl = _imageService.getImageUrl() {
+      : imageUrl = _imageService.getImageUrl(),
+        greeting = _niceDayService.wish() {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
   }
-
-  String greeting() => _niceDayService.wish();
 
   final List<String> cleaningLog = [];
   void clean() => _cleanerService.clean();
