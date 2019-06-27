@@ -4,5 +4,4 @@ import 'cleaner_base.dart';
 
 class CleanerSeniorService extends CleanerBase implements Cleaner {
   String getMessage() => 'Senior cleaner cleaning all party stuff!';
-  //void clean() => onCleanController.add(_message);
 }

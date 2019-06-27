@@ -4,8 +4,8 @@ import 'package:angular/angular.dart';
 
 abstract class CleanerBase {
   String getMessage();
-  Stream<String> get onClean => onCleanController.stream;
+  Stream<String> get onClean => _onCleanController.stream;
 
-  final StreamController<String> onCleanController = new StreamController<String>();
-  void clean() => onCleanController.add(getMessage());
+  final StreamController<String> _onCleanController = new StreamController<String>();
+  void clean() => _onCleanController.add(getMessage());
 }
