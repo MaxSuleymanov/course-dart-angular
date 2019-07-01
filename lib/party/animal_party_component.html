@@ -9,12 +9,14 @@
     <p *ngFor='let item of cleaningLog'>{{ item }}</p>
 </div>
 
-<div>
-    <animal [name]='"Jake"' (onVoice)="addVoice($event)" [age]="4"></animal>
-    <animal [name]='"Ponch"' (onVoice)="addVoice($event)" [age]="1"></animal>
-    <animal [name]='"Kuzya"' (onVoice)="addVoice($event)"></animal>
-    <animal [name]='"Stethem"' (onVoice)="addVoice($event)"></animal>
+<div style="display: inline-flex;">
+    <owner
+        *ngFor="let owner of owners"
+        [owner]="owner"
+        [animal]="getAnimalByOwnerId(owner.id)">
+    </owner>
 </div>
+
 <div *ngIf='log.isNotEmpty'>
     <h3>Info table</h3>
     <p *ngFor='let item of log'>{{ item }}</p>

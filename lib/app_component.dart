@@ -1,5 +1,9 @@
 import 'package:PartyAnimals/party/animal_party_component.dart';
+import 'package:PartyAnimals/owner/animal_owner.dart';
+import 'package:PartyAnimals/src/servies/party_manager.dart';
 import 'package:angular/angular.dart';
+
+import 'animal/animal.dart';
 
 @Component(
   selector: 'my-app',
@@ -9,4 +13,19 @@ import 'package:angular/angular.dart';
     AnimalPartyComponent,
   ],
 )
-class AppComponent {}
+class AppComponent implements OnInit {
+  final PartyManager _manager = new PartyManager();
+
+  List<Animal> animals = [];
+
+  List<AnimalOwner> owners = [];
+
+  Map<int, int> ownerToAnimal = {};
+
+  @override
+  Future ngOnInit() async {
+    ownerToAnimal = await _manager.getOwnersToAnimals();
+    animals = await _manager.getAnimals();
+    owners = await _manager.getOwners();
+  }
+}

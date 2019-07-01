@@ -10,6 +10,8 @@ import 'package:PartyAnimals/src/nice_day_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
+import 'animal.dart';
+
 const minAge = 1;
 const maxAge = minAge * 20;
 
@@ -31,7 +33,7 @@ const maxAge = minAge * 20;
     ])
 class AnimalComponent {
   @Input()
-  String name = 'nothing';
+  Animal animal;
 
   final String imageUrl;
 
@@ -55,7 +57,7 @@ class AnimalComponent {
       new StreamController<String>();
 
   void addVoice() {
-    _onVoiceController.add('I\'m ${name}, ${age} years old.');
+    _onVoiceController.add('I\'m ${animal.name}, ${age} years old.');
   }
 
   int _age = minAge * 2;
@@ -79,6 +81,7 @@ class AnimalComponent {
   void inc() => resize(1);
   void resize(int delta) {
     age = age + delta;
+    animal.age = age;
     _sizeChange.add(age);
   }
 

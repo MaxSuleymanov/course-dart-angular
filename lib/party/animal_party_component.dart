@@ -1,9 +1,9 @@
-import 'dart:async';
-
+import 'package:PartyAnimals/animal/animal.dart';
 import 'package:PartyAnimals/animal/animal_component.dart';
+import 'package:PartyAnimals/owner/animal_owner.dart';
+import 'package:PartyAnimals/owner/owner_component.dart';
 import 'package:PartyAnimals/src/app_providers.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner.dart';
-import 'package:PartyAnimals/src/cleaners/cleaner_factory.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner_types.dart';
 import 'package:PartyAnimals/src/image_url_getter.dart';
 import 'package:PartyAnimals/src/nice_day_service.dart';
@@ -16,7 +16,8 @@ import 'package:angular/angular.dart';
     directives: [
       NgFor,
       NgIf,
-      AnimalComponent
+      AnimalComponent,
+      OwnerComponent,
     ],
     providers: [
       appProviders,
@@ -24,6 +25,15 @@ import 'package:angular/angular.dart';
       ValueProvider(CleanerTypes, CleanerTypes.senior),
     ])
 class AnimalPartyComponent {
+  @Input()
+  List<Animal> animals;
+
+  @Input()
+  List<AnimalOwner> owners;
+
+  @Input()
+  Map<int, int> ownerToAnimal;
+
   final String imageUrl;
   // ignore: unused_field
   final ImageUrlGetter _imageService;
@@ -31,6 +41,8 @@ class AnimalPartyComponent {
   final NiceDayService _niceDayService;
   final Cleaner _cleanerService;
   final String greeting;
+  final List<String> cleaningLog = [];
+
   AnimalPartyComponent(
       this._imageService, this._niceDayService, this._cleanerService)
       : imageUrl = _imageService.getImageUrl(),
@@ -38,9 +50,11 @@ class AnimalPartyComponent {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
   }
 
-  final List<String> cleaningLog = [];
   void clean() => _cleanerService.clean();
 
   final List<String> log = [];
   void addVoice(String voice) => log.add(voice);
+
+  Animal getAnimalByOwnerId(int ownerId) =>
+      animals.firstWhere((x) => x.id == ownerToAnimal[ownerId]);
 }
