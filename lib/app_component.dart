@@ -7,14 +7,15 @@ import 'animal/animal.dart';
 
 @Component(
   selector: 'my-app',
-  styleUrls: ['app_component.css'],
+  styleUrls: [ 'app_component.css' ],
   templateUrl: 'app_component.html',
-  directives: [
-    AnimalPartyComponent,
-  ],
+  directives: [ AnimalPartyComponent ],
+  providers: [ ClassProvider(PartyManager) ]
 )
 class AppComponent implements OnInit {
-  final PartyManager _manager = new PartyManager();
+
+  final PartyManager _manager;
+  AppComponent(this._manager);
 
   List<Animal> animals = [];
 
@@ -28,4 +29,5 @@ class AppComponent implements OnInit {
     animals = await _manager.getAnimals();
     owners = await _manager.getOwners();
   }
+
 }

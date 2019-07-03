@@ -1,5 +1,6 @@
 import 'package:PartyAnimals/animal/animal.dart';
 import 'package:PartyAnimals/owner/animal_owner.dart';
+import 'package:PartyAnimals/src/api/owner_dto.dart';
 import 'package:PartyAnimals/src/api/party_api.dart';
 
 class PartyManager {
@@ -14,11 +15,13 @@ class PartyManager {
   Future<Iterable<AnimalOwner>> getOwners() async {
     var dto = await _api.getOwnersDto();
     var result = dto
-        .map((x) => new AnimalOwner(
-            x.id, x.name, _getAgeFromBirthday(x.birthday), x.hobby))
+        .map((x) => _getAnimal(x))
         .toList();
     return result;
   }
+
+  AnimalOwner _getAnimal(OwnerDto owner) =>
+      new AnimalOwner(owner.id, owner.name, _getAgeFromBirthday(owner.birthday), owner.hobby);
 
   int _getAgeFromBirthday(DateTime birthday) =>
       DateTime.now().year - birthday.year;
