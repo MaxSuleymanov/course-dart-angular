@@ -85,6 +85,9 @@ class AnimalComponent {
     _sizeChange.add(age);
   }
 
+  bool isParty = false;
+  void party() => isParty = !isParty;
+
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;
 

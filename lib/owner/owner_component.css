@@ -4,3 +4,7 @@
     margin: 5px;
     padding: 3px;
 }
+
+:host.is-party {
+    background-image: url("https://weezevent.com/wp-content/uploads/2019/01/12145054/organiser-soiree.jpg");
+}
