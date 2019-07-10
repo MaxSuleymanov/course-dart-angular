@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:PartyAnimals/src/animal_controller.dart';
 import 'package:PartyAnimals/src/app_providers.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner_types.dart';
@@ -42,9 +43,13 @@ class AnimalComponent {
   // ignore: unused_field
   final NiceDayService _niceDayService;
   final Cleaner _cleanerService;
+  final AnimalController _animalController;
   final String wish;
   AnimalComponent(
-      this._imgUrlService, this._niceDayService, this._cleanerService)
+      this._imgUrlService,
+      this._niceDayService,
+      this._cleanerService,
+      this._animalController)
       : imageUrl = _imgUrlService.getImageUrl(),
         wish = _niceDayService.wish() {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
@@ -85,8 +90,9 @@ class AnimalComponent {
     _sizeChange.add(age);
   }
 
-  bool isParty = false;
-  void party() => isParty = !isParty;
+  bool get isParty => _animalController.isOnParty(animal.id);
+
+  void party() => _animalController.toggleParting(animal.id);
 
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;
