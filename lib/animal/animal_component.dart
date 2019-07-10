@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:PartyAnimals/src/animal_controller.dart';
 import 'package:PartyAnimals/src/app_providers.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner.dart';
 import 'package:PartyAnimals/src/cleaners/cleaner_types.dart';
@@ -9,6 +10,8 @@ import 'package:PartyAnimals/src/img_url_service.dart';
 import 'package:PartyAnimals/src/nice_day_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+
+import 'animal.dart';
 
 const minAge = 1;
 const maxAge = minAge * 20;
@@ -31,7 +34,7 @@ const maxAge = minAge * 20;
     ])
 class AnimalComponent {
   @Input()
-  String name = 'nothing';
+  Animal animal;
 
   final String imageUrl;
 
@@ -40,9 +43,13 @@ class AnimalComponent {
   // ignore: unused_field
   final NiceDayService _niceDayService;
   final Cleaner _cleanerService;
+  final AnimalController _animalController;
   final String wish;
   AnimalComponent(
-      this._imgUrlService, this._niceDayService, this._cleanerService)
+      this._imgUrlService,
+      this._niceDayService,
+      this._cleanerService,
+      this._animalController)
       : imageUrl = _imgUrlService.getImageUrl(),
         wish = _niceDayService.wish() {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
@@ -55,7 +62,7 @@ class AnimalComponent {
       new StreamController<String>();
 
   void addVoice() {
-    _onVoiceController.add('I\'m ${name}, ${age} years old.');
+    _onVoiceController.add('I\'m ${animal.name}, ${age} years old.');
   }
 
   int _age = minAge * 2;
@@ -79,8 +86,13 @@ class AnimalComponent {
   void inc() => resize(1);
   void resize(int delta) {
     age = age + delta;
+    animal.age = age;
     _sizeChange.add(age);
   }
+
+  bool get isParty => _animalController.isOnParty(animal.id);
+
+  void party() => _animalController.toggleParting(animal.id);
 
   get canDecrease => age <= minAge;
   get canIncrease => age >= maxAge;

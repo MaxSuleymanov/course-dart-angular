@@ -1,12 +1,13 @@
 <img [src]='imageUrl' width="150"/>
 <div>
-    <label [style.font-size.px]="age + 10">Hi, my name is {{ name }}. I'm {{age}} years old. {{wish}}</label>
+    <label [style.font-size.px]="age + 10">Hi, my name is {{ animal.name }}. I'm {{age}} years old. {{wish}}</label>
 </div>
 <button (click)="dec()" [disabled]="canDecrease">-</button>
 <button (click)="inc()" [disabled]="canIncrease">+</button>
 <button (click)="addVoice()">VOICE</button>
+<button (click)="party()">PARTY</button>
 <button (click)="clean()">Clean my stuff</button>
 <div *ngIf='cleaningLog.isNotEmpty'>
-    <h3>Cleaning {{name}} stuff</h3>
+    <h3>Cleaning {{animal.name}} stuff</h3>
     <p *ngFor='let item of cleaningLog'>{{ item }}</p>
 </div>

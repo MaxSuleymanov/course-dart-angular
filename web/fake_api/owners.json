@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "name": "Tyler",
+    "birthday": "1985-01-13T18:25:43.511Z",
+    "hobby": ["clubbing", "HR activity", "art"]
+  },
+  {
+    "id": 1,
+    "name": "Sasha Lojkin",
+    "birthday": "1982-06-15T18:25:43.511Z",
+    "hobby": ["do nothing"]
+  },
+  {
+    "id": 2,
+    "name": "Finn The Human",
+    "birthday": "1996-05-25T18:25:43.511Z",
+    "hobby": ["adventures", "saving princesses"]
+  },
+  {
+    "id": 666,
+    "name": "SA+AN",
+    "birthday": "1000-01-01T18:25:43.511Z",
+    "hobby": ["garden"]
+  }
+]

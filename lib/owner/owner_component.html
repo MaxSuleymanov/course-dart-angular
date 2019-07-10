@@ -1,0 +1,27 @@
+<div>
+    <p align="center">
+        <label>Owned by {{owner.name}}, age {{owner.age}}</label>
+    </p>
+
+    <p  align="center">
+        <label>He likes:</label>
+        <ul>
+            <li *ngFor="let item of owner.hobby">{{item}}</li>
+        </ul>
+    </p>
+
+    <p align="center">
+        <animal
+            #animalInstance
+            [animal]='animal'
+            (onVoice)="addVoice($event)">
+        </animal>
+    </p>
+
+    <p align="center">
+        <div *ngIf='log.isNotEmpty'>
+            <h3>Chat</h3>
+            <p *ngFor='let item of log'>{{ item }}</p>
+        </div>
+    </p>
+</div>

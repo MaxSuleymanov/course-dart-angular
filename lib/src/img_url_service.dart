@@ -3,15 +3,11 @@ import 'dart:math';
 import 'package:PartyAnimals/src/image_url_getter.dart';
 
 class ImgUrlService implements ImageUrlGetter {
-  int _counter = 0;
   @override
   String getImageUrl() {
-    _counter++;
-    print('get image service ' + _counter.toString());
     return _imgUrls[Random().nextInt(_imgUrls.length - 1)];
   }
 
-  //String getImageUrl() => _imgUrls[Random().nextInt(_imgUrls.length - 1)];
   final List<String> _imgUrls = [
     'https://www.stickpng.com/assets/images/58a050065583a1291368eeb4.png',
     'https://img.fireden.net/v/image/1513/27/1513273350414.png',
