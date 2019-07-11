@@ -11,4 +11,6 @@ class AnimalController {
       _partingAnimals.add(id);
     }
   }
+
+  bool isEverybodyParty(Set<int> ids) => ids.difference(_partingAnimals).isEmpty;
 }

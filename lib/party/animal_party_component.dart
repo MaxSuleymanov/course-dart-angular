@@ -71,8 +71,7 @@ class AnimalPartyComponent {
     }
   }
 
-  bool get isSuperParty => !animals.any((x) =>
-    !_animalController.isOnParty(x.id));
+  bool get isSuperParty => _animalController.isEverybodyParty(animals.map((x) => x.id).toSet());
 
   final List<String> log = [];
   void addVoice(String voice) => log.add(voice);

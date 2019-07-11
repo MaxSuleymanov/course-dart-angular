@@ -11,7 +11,7 @@ import 'animal_owner.dart';
     styleUrls: ['owner_component.css'],
     directives: [AnimalComponent, NgFor, NgIf])
 class OwnerComponent {
-  AnimalController _animalController;
+  final AnimalController _animalController;
   OwnerComponent(this._animalController);
 
   @ViewChild('animalInstance', read: AnimalComponent)
