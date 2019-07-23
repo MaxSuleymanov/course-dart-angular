@@ -1,9 +1,15 @@
 <div align="center">
     <img [src]="isSuperParty ? imagePartyUrl : imageUrl"/>
 </div>
-<h2 align="center">PARTY AN|MALS!</h2>
+<h2 align="center">{{partyName}}</h2>
 <h3 align="center">{{greeting}}</h3>
 
+<div align="center">
+    <input
+            #partyNameInput
+            [value]="partyName">
+
+</div>
 <div align="center"><button (click)="clean()">Clean all party</button></div>
 <div align="center"><button (click)="partyToggle()">!!! SUPER PARTY !!!</button></div>
 
