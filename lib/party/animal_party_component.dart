@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:html';
+
 import 'package:PartyAnimals/animal/animal.dart';
 import 'package:PartyAnimals/animal/animal_component.dart';
 import 'package:PartyAnimals/owner/animal_owner.dart';
@@ -29,7 +32,7 @@ const String imagePartyUrl = 'https://vignette.wikia.nocookie.net/adventuretimew
       ClassProvider(ImageUrlGetter, useClass: PartyUrlService),
       ValueProvider(CleanerTypes, CleanerTypes.senior),
     ])
-class AnimalPartyComponent {
+class AnimalPartyComponent implements OnInit {
   @Input()
   List<Animal> animals;
 
@@ -48,13 +51,20 @@ class AnimalPartyComponent {
   final AnimalController _animalController;
   final String greeting;
   final List<String> cleaningLog = [];
+  ChangeDetectorRef _cdr;
+  NgZone _zone;
+
+  Timer timer;
 
   AnimalPartyComponent(
-      this._imageService, this._niceDayService, this._cleanerService, this._animalController)
+      this._imageService, this._niceDayService, this._cleanerService, this._animalController, this._zone, this._cdr)
       : imageUrl = _imageService.getImageUrl(),
         greeting = _niceDayService.wish() {
     _cleanerService.onClean.listen((info) => cleaningLog.add(info));
   }
+
+  @ViewChild('partyNameInput', read: HtmlElement) InputElement partyNameInput;
+  String partyName = 'PARTY AN|MALS!';
 
   void clean() => _cleanerService.clean();
 
@@ -78,4 +88,25 @@ class AnimalPartyComponent {
 
   Animal getAnimalByOwnerId(int ownerId) =>
       animals.firstWhere((x) => x.id == ownerToAnimal[ownerId]);
+
+  void updatePartyName() {
+    _zone.runOutsideAngular(() {
+      if (timer != null) {
+        timer.cancel();
+      }
+      timer = new Timer(const Duration(milliseconds: 500), () {
+        partyName = partyNameInput.value;
+        _cdr
+          ..markForCheck()
+          ..detectChanges();
+      });
+    });
+  }
+
+  @override
+  void ngOnInit() {
+    _zone.runOutsideAngular((){
+      partyNameInput.onInput.listen((_) => updatePartyName());
+    });
+  }
 }
